@@ -4,6 +4,7 @@ import { ProductsPage } from "../pages/products-page";
 import { CartPage } from "../pages/cart-page";
 import { STANDARD_USER } from "../fixtures/users";
 import { PRODUCTS } from "../fixtures/products";
+import { STATUS_CODES } from "http";
 
 const urlAfterlogin = "https://www.saucedemo.com/v1/inventory.html";
 const productTitle = PRODUCTS.sauceLabBoltsShirt.name;
@@ -19,7 +20,12 @@ test.beforeEach(async ({ page }) => {
 
 test("Validate cart contents", async ({ page }) => {
     const cartPage = new CartPage(page);
-    await cartPage.goToCart();
+
+    const [response] = await Promise.all([
+      page.waitForResponse("https://www.saucedemo.com/v1/cart.html"),
+      cartPage.goToCart()
+      
+    ]);
     const itemTitle =  await cartPage.cartItemTitle.innerText();
     await expect(productTitle).toEqual(itemTitle);
     
