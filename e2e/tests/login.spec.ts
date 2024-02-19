@@ -12,5 +12,5 @@ test("Open and verify login page", async ({ page, username, password }) => {
     await expect(page).toHaveTitle(/Swag Labs/);
     await loginPage.enterCredentials(username, password);
     await expect(page).toHaveURL(urlAfterlogin);
-    
+
 });

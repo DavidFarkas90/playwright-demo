@@ -3,4 +3,4 @@ export const PRODUCTS = {
         name: "Sauce Labs Bolt T-Shirt",
         price: "15.99"
     }
-}
+};

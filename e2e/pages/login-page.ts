@@ -36,14 +36,10 @@ export class LoginPage {
         await this.enterUsername(username);
         await this.enterPassword(password);
         await this.clickOnLogin();
-
     }
 
     async loginUser(username: string, password: string) {
         await this.goToPage();
         await this.enterCredentials(username, password);
-
     }
-
 }
-

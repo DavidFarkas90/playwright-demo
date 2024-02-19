@@ -30,6 +30,4 @@ export class ProductsPage {
         await this.addToCartButton.nth(product).click();
 
     }
-
-
 }

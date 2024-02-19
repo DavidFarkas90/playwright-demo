@@ -18,7 +18,7 @@ export class CartPage {
         this.continueShoppingButton = page.locator("a.btn_secondary");
         this.cartItemTitle = page.locator("div.inventory_item_name");
         this.cartItemPrice = page.locator("div.inventory_item_price");
-        
+
     }
 
     async goToCart() {
