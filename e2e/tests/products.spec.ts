@@ -2,7 +2,6 @@ import { expect } from "@playwright/test";
 import { test } from "../fixtures/user-fixture";
 import { LoginPage } from "../pages/login-page";
 import { ProductsPage } from "../pages/products-page";
-import { STANDARD_USER } from "../fixtures/users";
 
 const urlAfterlogin = "https://www.saucedemo.com/v1/inventory.html";
 const productUrl = "https://www.saucedemo.com/v1/inventory-item.html?id=1";
