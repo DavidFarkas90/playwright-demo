@@ -14,18 +14,14 @@ test.beforeEach(async ({ page, username, password }) => {
   await expect(page).toHaveURL(urlAfterlogin);
   const productsPage = new ProductsPage(page);
   await productsPage.addProductToCart(2);
-
 });
 
 test("Validate cart contents", async ({ page }) => {
   const cartPage = new CartPage(page);
 
-  const [response] = await Promise.all([
-    page.waitForResponse("https://www.saucedemo.com/v1/cart.html"),
-    cartPage.goToCart()
+  await page.waitForResponse("https://www.saucedemo.com/v1/cart.html");
+  await cartPage.goToCart();
 
-  ]);
   const itemTitle = await cartPage.cartItemTitle.innerText();
-  await expect(productTitle).toEqual(itemTitle);
-
+  expect(productTitle).toEqual(itemTitle);
 });
