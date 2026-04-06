@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "open-ui-mode": "npx playwright test --ui",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",

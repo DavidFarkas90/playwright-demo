@@ -1,15 +1,37 @@
 import { expect, test } from "@playwright/test";
+import { UploadPage } from "../pages/upload.page.js";
 
 test("Upload file heroku", async ({ page }) => {
-  const URL = "https://the-internet.herokuapp.com/upload";
+  const PAGE_URL = "https://the-internet.herokuapp.com/upload";
+  const PAGE_TITLE = "File Uploader";
+  const INPUT_FILE_PATH = "./e2e/downloads/LambdaTest.txt";
+  const INPUT_FILE_NAME = "LambdaTest.txt";
+  const uploadPage = new UploadPage(page);
 
-  await page.goto(URL, { timeout: 10000 });
-  await page.setInputFiles('input[type="file"]', "./e2e/downloads/LambdaTest.txt");
-  await page.click("#file-submit");
-  await expect(page.locator("#uploaded-files")).toContainText("LambdaTest.txt");
+  await test.step("Navigat to page URL", async () => {
+    await page.goto(PAGE_URL);
+    expect(page.url(), "Page url is correct").toEqual(PAGE_URL);
+  });
+
+  await test.step("Validate page title", async () => {
+    await expect(uploadPage.pageTitle).toBeVisible();
+    const pageTitle = await uploadPage.getPageTitle();
+    console.log("Page title:" + pageTitle);
+    await expect(uploadPage.pageTitle, "Page title is correct").toHaveText(PAGE_TITLE);
+  });
+
+  await test.step("Upload file", async () => {
+    await uploadPage.chooseInputFile(INPUT_FILE_PATH);
+    await uploadPage.clickOnUploadFile();
+  });
+
+  await test.step("Validate the file is uploaded", async () => {
+    const uploadedFileName = await uploadPage.getUploadedFile();
+    expect(uploadedFileName, "Uploaded file is correct").toEqual(INPUT_FILE_NAME);
+  });
 });
 
-test("Upload file commitquality", async ({ page }) => {
+test("Upload file commit quality", async ({ page }) => {
   const URL_2 = "https://commitquality.com/practice-file-upload";
 
   await page.goto(URL_2, { timeout: 10000 });
