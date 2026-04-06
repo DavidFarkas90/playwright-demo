@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { UploadPage } from "../pages/upload.page.js";
+import { UploadPage } from "../../pages/upload.page.js";
 
 test("Upload file heroku", async ({ page }) => {
   const PAGE_URL = "https://the-internet.herokuapp.com/upload";
