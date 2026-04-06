@@ -11,7 +11,7 @@ Track your progress while building a **Senior-level Playwright automation framew
 - [x] Initialize Playwright project (`npm init playwright@latest`)
 - [x] Configure TypeScript
 - [x] Add ESLint + Prettier
-- [ ] Customize Playwright config
+- [x] Customize Playwright config
 
 ---
 
