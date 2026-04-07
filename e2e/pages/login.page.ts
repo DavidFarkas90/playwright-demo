@@ -6,15 +6,17 @@ export class LoginPage {
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
+  readonly logoutButton: Locator;
   readonly pageTitle: Locator;
   readonly alert: Locator;
   readonly alertMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.usernameInput = page.locator("#username");
-    this.passwordInput = page.locator("#password");
-    this.loginButton = page.locator('button[type="submit"]');
+    this.usernameInput = page.getByRole("textbox", { name: "username" });
+    this.passwordInput = page.getByRole("textbox", { name: "password" });
+    this.loginButton = page.getByRole("button", { name: "Login" });
+    this.logoutButton = page.getByRole("link", { name: "Logout" });
     this.pageTitle = page.locator(".container h1", {
       hasText: LoginPageLabels.PAGE_TITLE,
     });
@@ -36,6 +38,10 @@ export class LoginPage {
 
   async clickLoginButton() {
     await this.loginButton.click();
+  }
+
+  async clickLogoutButton() {
+    await this.logoutButton.click();
   }
 
   async login(username: string, password: string) {

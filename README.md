@@ -19,10 +19,10 @@ Track your progress while building a **Senior-level Playwright automation framew
 
 - [x] Write login test (valid)
 - [x] Write login test (invalid)
-- [ ] Implement forgot password flow
+- [x] Write logout test
 - [ ] Cover form validation
-- [ ] Use `getByRole`, `getByLabel`, `getByText`
-- [ ] Add assertions (`toBeVisible`, etc.)
+- [x] Use `getByRole`, `getByLabel`, `getByText`
+- [x] Add assertions (`toBeVisible`, etc.)
 
 ---
 
