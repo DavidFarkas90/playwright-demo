@@ -2,7 +2,10 @@ import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pages/login.page.js";
 
 const URL = "https://practice.expandtesting.com/login";
+const USERNAME = "practice";
+const PASSWORD = process.env.EXPAND_TESTING_PASSWORD ?? "password-not-set";
 const ERROR_MESSAGE = "Your username is invalid!";
+const LOGGED_IN_MESSAGE = "You logged into a secure area!";
 let loginPage: LoginPage;
 
 test.beforeEach(async ({ page }) => {
@@ -16,8 +19,16 @@ test("Try login with invalid credentials", async () => {
     await loginPage.enterPassword("");
     await loginPage.clickLoginButton();
 
-    const errorMessage = await loginPage.getErrorMessage();
+    const errorMessage = await loginPage.getAlertMessage();
     expect(loginPage.isAlertVisible()).toBeTruthy();
     expect(errorMessage, "Error message is correct").toEqual(ERROR_MESSAGE);
   });
+});
+
+test("Login with valid credentials", async () => {
+  await loginPage.login(USERNAME, PASSWORD);
+
+  const loggedInMessage = await loginPage.getAlertMessage();
+  expect(loginPage.isAlertVisible()).toBeTruthy();
+  expect(loggedInMessage, "Message is correct").toEqual(LOGGED_IN_MESSAGE);
 });

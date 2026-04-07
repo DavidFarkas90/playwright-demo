@@ -7,7 +7,7 @@ export class LoginPage {
   readonly loginButton: Locator;
   readonly pageTitle: Locator;
   readonly alert: Locator;
-  readonly errorMessage: Locator;
+  readonly alertMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -18,7 +18,7 @@ export class LoginPage {
       hasText: "Test Login page for Automation Testing Practice",
     });
     this.alert = page.locator("#flash");
-    this.errorMessage = page.locator("#flash b");
+    this.alertMessage = page.locator("#flash b");
   }
 
   async getPageTitle(): Promise<string> {
@@ -47,7 +47,7 @@ export class LoginPage {
     return await this.alert.isVisible();
   }
 
-  async getErrorMessage(): Promise<string> {
-    return await this.errorMessage.innerText();
+  async getAlertMessage(): Promise<string> {
+    return await this.alertMessage.innerText();
   }
 }
