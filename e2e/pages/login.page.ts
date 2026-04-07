@@ -1,4 +1,5 @@
 import { type Page, type Locator } from "@playwright/test";
+import { LoginPageLabels } from "../constants/login-page-labels.js";
 
 export class LoginPage {
   readonly page: Page;
@@ -15,7 +16,7 @@ export class LoginPage {
     this.passwordInput = page.locator("#password");
     this.loginButton = page.locator('button[type="submit"]');
     this.pageTitle = page.locator(".container h1", {
-      hasText: "Test Login page for Automation Testing Practice",
+      hasText: LoginPageLabels.PAGE_TITLE,
     });
     this.alert = page.locator("#flash");
     this.alertMessage = page.locator("#flash b");

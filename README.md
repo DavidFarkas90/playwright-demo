@@ -17,8 +17,8 @@ Track your progress while building a **Senior-level Playwright automation framew
 
 ### 🔹 Day 3–4: First Tests (Expand Testing)
 
-- [ ] Write login test (valid)
-- [ ] Write login test (invalid)
+- [x] Write login test (valid)
+- [x] Write login test (invalid)
 - [ ] Implement forgot password flow
 - [ ] Cover form validation
 - [ ] Use `getByRole`, `getByLabel`, `getByText`
@@ -28,10 +28,10 @@ Track your progress while building a **Senior-level Playwright automation framew
 
 ### 🔹 Day 5: Page Object Model (POM)
 
-- [ ] Create `/pages` folder
-- [ ] Implement `LoginPage`
-- [ ] Move selectors into page objects
-- [ ] Refactor tests to use POM
+- [x] Create `/pages` folder
+- [x] Implement `LoginPage`
+- [x] Move selectors into page objects
+- [x] Refactor tests to use POM
 
 ---
 
