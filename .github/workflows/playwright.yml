@@ -18,6 +18,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
+        env:
+          EXPAND_TESTING_USERNAME: ${{ secrets.EXPAND_TESTING_USERNAME }}
+          EXPAND_TESTING_PASSWORD: ${{ secrets.EXPAND_TESTING_PASSWORD }}
         run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: always()
