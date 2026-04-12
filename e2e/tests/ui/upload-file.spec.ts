@@ -1,15 +1,39 @@
 import { expect, test } from "@playwright/test";
 import fs from "fs";
+import { UploadPracticePage } from "../../pages/upload.page.js";
+import { PageUrls } from "../../constants/page-urls.js";
+import { uploadPageLabels } from "../../constants/upload-page-labels.js";
 
-test("Upload file heroku", async ({ page }, testInfo) => {
-  const filePath = testInfo.outputPath("temp.txt");
+let uploadPage: UploadPracticePage;
+const uploadFileName = "practice-upload.txt";
+const fileContent = "This is a test file for upload practice.";
 
-  fs.writeFileSync(filePath, "Test file content");
+test.beforeEach(({ page }) => {
+  uploadPage = new UploadPracticePage(page);
+});
 
-  await page.goto("https://the-internet.herokuapp.com/upload");
+test("Upload file practice", async ({ page }, testInfo) => {
+  const filePath = testInfo.outputPath(uploadFileName);
 
-  await page.locator("#file-upload").setInputFiles(filePath);
-  await page.locator("#file-submit").click();
+  fs.writeFileSync(filePath, fileContent);
 
-  await expect(page.locator("#uploaded-files")).toHaveText("temp.txt");
+  await test.step("Navigate to the upload practice page", async () => {
+    await page.goto(PageUrls.UPLOAD_PRACTICE_PAGE);
+    const pageTitle = await uploadPage.getPageTitle();
+    expect(pageTitle).toBe(uploadPageLabels.PAGE_TITLE);
+  });
+
+  await test.step("Choose a file to upload", async () => {
+    await uploadPage.clickOnChooseFileButton();
+    await uploadPage.chooseInputFile(filePath);
+  });
+
+  await test.step("Upload the chosen file", async () => {
+    await uploadPage.clickOnUploadFile();
+  });
+
+  await test.step("Verify the uploaded file name", async () => {
+    const uploadedFileName = await uploadPage.getUploadedFile();
+    expect(uploadedFileName, uploadPageLabels.UPLOADED_FILE_IS_CORRECT).toContain(uploadFileName);
+  });
 });
