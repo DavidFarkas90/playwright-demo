@@ -38,7 +38,7 @@ Track your progress while building a **Senior-level Playwright automation framew
 ### 🔹 Day 6–7: Advanced UI Interactions
 
 - [ ] Handle alerts & dialogs
-- [ ] Implement file upload test
+- [x] Implement file upload test
 - [ ] Test hover interactions
 - [ ] Work with tables
 - [ ] Create `/utils` folder
