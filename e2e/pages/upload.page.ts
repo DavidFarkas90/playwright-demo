@@ -1,6 +1,7 @@
 import { type Locator, type Page } from "@playwright/test";
+import { uploadPageLabels } from "../constants/upload-page-labels.js";
 
-export class UploadPage {
+export class UploadPracticePage {
   readonly page: Page;
   readonly pageTitle: Locator;
   readonly chooseFileButton: Locator;
@@ -10,11 +11,11 @@ export class UploadPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.pageTitle = page.locator("h3", { hasText: "File Uploader" });
-    this.chooseFileButton = page.locator("#file-upload");
-    this.uploadFileButton = page.locator("#file-submit");
+    this.pageTitle = page.locator(".page-layout h1", { hasText: uploadPageLabels.PAGE_TITLE });
+    this.chooseFileButton = page.getByTestId("file-input");
+    this.uploadFileButton = page.getByTestId("file-submit");
     this.uploadedFile = page.locator("#uploaded-files");
-    this.inputFile = "#file-upload";
+    this.inputFile = "[data-testid='file-input']";
   }
 
   async getPageTitle(): Promise<string> {
