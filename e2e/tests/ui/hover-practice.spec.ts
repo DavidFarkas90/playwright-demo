@@ -26,3 +26,12 @@ test("Hover over user images and verify user names are displayed", async () => {
     }
   });
 });
+
+test("Hover over user image and click on profile link, and verify user profile page is displayed", async () => {
+  await test.step("Hover over the first user image and verify profile link", async () => {
+    const userId = 1;
+    await hoverPage.hoverOverUserImage(userId);
+    expect(await hoverPage.isUserProfileLinkVisible(userId)).toBeTruthy();
+    expect(await hoverPage.getUserProfileLink(userId)).toContain(`/users/${userId}`);
+  });
+});
