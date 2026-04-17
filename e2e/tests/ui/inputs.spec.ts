@@ -4,11 +4,11 @@ import { PageUrls } from "../../constants/page-urls.js";
 
 let inputPage: InputPage;
 let outputFields: Array<Locator>;
-const numberValue = "12345";
-const textValue = "Test input";
-const passwordValue = "password123";
-const dateValue = "2024-01-01";
-const expectedValues = [numberValue, textValue, passwordValue, dateValue];
+const numberValue: string = "12345";
+const textValue: string = "Test input";
+const passwordValue: string = "password123";
+const dateValue: string = "2024-01-01";
+const expectedValues: Array<string> = [numberValue, textValue, passwordValue, dateValue];
 
 test.describe("Input fields test page", () => {
   test.beforeEach(async ({ page }) => {

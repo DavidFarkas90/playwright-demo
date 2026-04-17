@@ -5,8 +5,8 @@ import { PageUrls } from "../../constants/page-urls.js";
 import { uploadPageLabels } from "../../constants/upload-page-labels.js";
 
 let uploadPage: UploadPracticePage;
-const uploadFileName = "practice-upload.txt";
-const fileContent = "This is a test file for upload practice.";
+const uploadFileName: string = "practice-upload.txt";
+const fileContent: string = "This is a test file for upload practice.";
 
 test.beforeEach(({ page }) => {
   uploadPage = new UploadPracticePage(page);

@@ -4,7 +4,7 @@ import { PageUrls } from "../../constants/page-urls.js";
 
 let hoverPage: HoverPage;
 let userName: string;
-const USER_COUNT = 3;
+const USER_COUNT: number = 3;
 
 test.beforeEach(async ({ page }) => {
   hoverPage = new HoverPage(page);

@@ -3,9 +3,9 @@ import { LoginPage } from "../../pages/login.page.js";
 import { PageUrls } from "../../constants/page-urls.js";
 import { LoginPageLabels } from "../../constants/login-page-labels.js";
 
-const USERNAME = process.env.EXPAND_TESTING_USERNAME ?? "username-not-set";
-const PASSWORD = process.env.EXPAND_TESTING_PASSWORD ?? "password-not-set";
-const INVALID_PASSWORD = "invalid-password";
+const USERNAME: string = process.env.EXPAND_TESTING_USERNAME ?? "username-not-set";
+const PASSWORD: string = process.env.EXPAND_TESTING_PASSWORD ?? "password-not-set";
+const INVALID_PASSWORD: string = "invalid-password";
 let loginPage: LoginPage;
 
 test.describe("Login page tests", () => {
