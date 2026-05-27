@@ -1,6 +1,6 @@
 # Playwright Demo Framework
 
-A senior-level end-to-end test automation framework built with [Playwright](https://playwright.dev/) and TypeScript. The goal of this project is to demonstrate and practice real-world QA automation patterns including Page Object Model, custom fixtures, API testing, and advanced UI interactions.
+A senior-level end-to-end test automation framework built with [Playwright](https://playwright.dev/) and TypeScript. The goal of this project is to demonstrate and practice real-world QA automation patterns: Page Object Model, typed constants, API testing, and advanced UI interactions.
 
 Tests run against publicly available practice sites:
 
@@ -10,27 +10,29 @@ Tests run against publicly available practice sites:
 
 ## Features
 
-- Page Object Model (POM)
-- Custom Playwright fixtures
+- Page Object Model (POM) — every page has a dedicated class, no raw locators in tests
+- Typed constants for URLs, labels, timeouts, and HTTP status codes
 - UI tests: login/logout, hover, file upload, drag-and-drop, dynamic loading, input fields
 - API tests using Playwright's request context
-- TypeScript with strict types
+- TypeScript throughout
 - ESLint + Prettier with Husky pre-commit hooks
-- HTML test reports
-- GitHub Actions CI pipeline
+- HTML test reports with Playwright Trace Viewer support
+- GitHub Actions CI pipeline with lint and format checks before tests run
 
 ## Project Structure
 
 ```
 e2e/
-├── constants/        # Selectors, labels, and URLs
-├── fixtures/         # Custom Playwright test fixtures
-├── pages/            # Page Object Model classes
+├── constants/
+│   ├── api-urls.ts              # Base URLs for API endpoints
+│   ├── http-status-codes.ts     # HTTP response status codes
+│   ├── page-urls.ts             # Full URLs for UI pages
+│   ├── timeouts.ts              # Named timeout values
+│   └── *-page-labels.ts        # Page titles, button labels, alert messages
+├── pages/                       # Page Object Model classes
 ├── tests/
-│   ├── api/          # API-level tests
-│   └── ui/           # UI end-to-end tests
-├── types/            # TypeScript type definitions
-└── utils/            # Reusable helper utilities
+│   ├── api/                     # API-level tests
+│   └── ui/                      # UI end-to-end tests
 ```
 
 ## Prerequisites
@@ -88,4 +90,4 @@ Pre-commit hooks (via Husky) automatically lint and format staged files on every
 
 ## CI
 
-GitHub Actions runs all tests on every push and pull request to `main`. The workflow installs Node.js 24, installs dependencies and browsers, runs the tests, and uploads the HTML report as an artifact retained for 30 days.
+GitHub Actions runs on every push and pull request to `main`. The pipeline runs lint and format checks first, then installs browsers and runs the full test suite. The HTML report is uploaded as an artifact retained for 30 days.
