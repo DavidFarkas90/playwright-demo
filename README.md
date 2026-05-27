@@ -1,133 +1,91 @@
-# 🚀 Playwright 2-Week Practice Roadmap (Checklist)
+# Playwright Demo Framework
 
-Track your progress while building a **Senior-level Playwright automation framework**.
+A senior-level end-to-end test automation framework built with [Playwright](https://playwright.dev/) and TypeScript. The goal of this project is to demonstrate and practice real-world QA automation patterns including Page Object Model, custom fixtures, API testing, and advanced UI interactions.
 
----
+Tests run against publicly available practice sites:
 
-## 🗓️ Week 1 — Core Skills + Framework Setup
+- [practice.expandtesting.com](https://practice.expandtesting.com)
+- [the-internet.herokuapp.com](https://the-internet.herokuapp.com)
+- [commitquality.com](https://commitquality.com)
 
-### 🔹 Day 1–2: Project Setup
+## Features
 
-- [x] Initialize Playwright project (`npm init playwright@latest`)
-- [x] Configure TypeScript
-- [x] Add ESLint + Prettier
-- [x] Customize Playwright config
+- Page Object Model (POM)
+- Custom Playwright fixtures
+- UI tests: login/logout, hover, file upload, drag-and-drop, dynamic loading, input fields
+- API tests using Playwright's request context
+- TypeScript with strict types
+- ESLint + Prettier with Husky pre-commit hooks
+- HTML test reports
+- GitHub Actions CI pipeline
 
----
+## Project Structure
 
-### 🔹 Day 3–4: First Tests (Expand Testing)
+```
+e2e/
+├── constants/        # Selectors, labels, and URLs
+├── fixtures/         # Custom Playwright test fixtures
+├── pages/            # Page Object Model classes
+├── tests/
+│   ├── api/          # API-level tests
+│   └── ui/           # UI end-to-end tests
+├── types/            # TypeScript type definitions
+└── utils/            # Reusable helper utilities
+```
 
-- [x] Write login test (valid)
-- [x] Write login test (invalid)
-- [x] Write logout test
-- [ ] Cover form validation
-- [x] Use `getByRole`, `getByLabel`, `getByText`
-- [x] Add assertions (`toBeVisible`, etc.)
+## Prerequisites
 
----
+- [Node.js](https://nodejs.org/) v18 or later (v24 recommended — used in CI)
+- npm v9 or later
 
-### 🔹 Day 5: Page Object Model (POM)
+## Installation
 
-- [x] Create `/pages` folder
-- [x] Implement `LoginPage`
-- [x] Move selectors into page objects
-- [x] Refactor tests to use POM
+```bash
+# Install dependencies
+npm install
 
----
+# Install Playwright browsers and system dependencies
+npx playwright install --with-deps
+```
 
-### 🔹 Day 6–7: Advanced UI Interactions
+## Environment Variables
 
-- [ ] Handle alerts & dialogs
-- [x] Implement file upload test
-- [ ] Test hover interactions
-- [ ] Work with tables
-- [ ] Create `/utils` folder
-- [ ] Add reusable helper functions
+Some tests require credentials loaded from a `.env` file. Create one in the project root:
 
----
+```
+EXPAND_TESTING_USERNAME=<your-username>
+EXPAND_TESTING_PASSWORD=<your-password>
+```
 
-## 🗓️ Week 2 — Real-World + Advanced Topics
+> For CI, these values are stored as GitHub Actions secrets (`EXPAND_TESTING_USERNAME` and `EXPAND_TESTING_PASSWORD`).
 
-### 🔹 Day 8–9: E2E Flow (E-commerce)
+## Running Tests
 
-- [ ] Register new user
-- [ ] Login user
-- [ ] Add product to cart
-- [ ] Complete checkout flow
+```bash
+# Run all tests headlessly
+npx playwright test
 
----
+# Run in interactive UI mode (great for debugging)
+npm run open:ui-mode
 
-### 🔹 Day 10: Fixtures & Architecture
+# Open the last HTML report
+npm run open:report
+```
 
-- [ ] Create `/fixtures` folder
-- [ ] Implement logged-in user fixture
-- [ ] Refactor tests to use fixtures
+## Code Quality
 
----
+```bash
+# Check and fix linting
+npm run lint
+npm run lint:fix
 
-### 🔹 Day 11: API + UI Testing
+# Check and fix formatting
+npm run format
+npm run format:check
+```
 
-- [ ] Intercept API requests
-- [ ] Validate API responses
-- [ ] Assert UI updates based on API
+Pre-commit hooks (via Husky) automatically lint and format staged files on every commit.
 
----
+## CI
 
-### 🔹 Day 12: Parallel Execution + CI
-
-- [ ] Enable parallel test execution
-- [ ] Add retries
-- [ ] Setup GitHub Actions CI
-
----
-
-### 🔹 Day 13: Reporting & Debugging
-
-- [ ] Enable HTML reports
-- [ ] Use Trace Viewer
-- [ ] Capture screenshots on failure
-
----
-
-### 🔹 Day 14: Final Project Polish
-
-- [ ] Clean project structure
-- [ ] Add README documentation
-- [ ] Ensure all tests pass
-- [ ] Prepare project for GitHub
-
----
-
-## 🧠 Senior-Level Checklist
-
-### Architecture
-
-- [ ] Page Object Model implemented
-- [ ] Fixtures used properly
-
-### Stability
-
-- [ ] No flaky selectors
-- [ ] No `waitForTimeout`
-
-### Maintainability
-
-- [ ] Reusable components
-- [ ] Clean folder structure
-
----
-
-## 🔥 Bonus Challenges
-
-- [ ] Implement auth reuse (`storageState`)
-- [ ] Add data-driven tests
-- [ ] Add visual testing
-- [ ] Dockerize tests
-
----
-
-## ✅ Final Goal
-
-- [ ] Production-ready Playwright framework
-- [ ] Real-world test coverage
-- [ ] Portfolio-ready GitHub project
+GitHub Actions runs all tests on every push and pull request to `main`. The workflow installs Node.js 24, installs dependencies and browsers, runs the tests, and uploads the HTML report as an artifact retained for 30 days.
