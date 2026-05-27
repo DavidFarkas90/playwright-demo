@@ -13,14 +13,21 @@ test.describe("Dynamic loading tests", () => {
       await page.goto(PageUrls.HEROKU_DYNAMIC_LOADING_PAGE);
     });
 
-    test("heroku dynamic loading", async () => {
-      await herokuPage.clickStart();
-      await expect(herokuPage.loadingSpinner).toBeVisible();
-      await expect(herokuPage.helloWorldHeading).toBeVisible({ timeout: Timeouts.DYNAMIC_LOADING });
+    test("Clicking Start shows a loading spinner, then reveals the Hello World heading", async () => {
+      await test.step("Click Start and verify loading spinner is visible", async () => {
+        await herokuPage.clickStart();
+        await expect(herokuPage.loadingSpinner).toBeVisible();
+      });
+
+      await test.step("Wait for Hello World heading to appear after loading completes", async () => {
+        await expect(herokuPage.helloWorldHeading).toBeVisible({
+          timeout: Timeouts.DYNAMIC_LOADING,
+        });
+      });
     });
   });
 
-  test.describe("Commitquality", () => {
+  test.describe("Commit quality", () => {
     let commitQualityPage: CommitQualityDynamicLoadingPage;
 
     test.beforeEach(async ({ page }) => {
@@ -28,11 +35,16 @@ test.describe("Dynamic loading tests", () => {
       await page.goto(PageUrls.COMMIT_QUALITY_DYNAMIC_LOADING_PAGE);
     });
 
-    test("commit quality dynamic loading", async () => {
-      await commitQualityPage.clickAlwaysVisible();
-      await expect(commitQualityPage.loadingButton).toBeVisible();
-      await expect(commitQualityPage.delayedButton).toBeVisible({
-        timeout: Timeouts.DYNAMIC_LOADING,
+    test("Clicking Always Visible shows a loading state, then reveals the delayed button", async () => {
+      await test.step("Click Always Visible and verify loading button is shown", async () => {
+        await commitQualityPage.clickAlwaysVisible();
+        await expect(commitQualityPage.loadingButton).toBeVisible();
+      });
+
+      await test.step("Wait for delayed button to appear after loading completes", async () => {
+        await expect(commitQualityPage.delayedButton).toBeVisible({
+          timeout: Timeouts.DYNAMIC_LOADING,
+        });
       });
     });
   });

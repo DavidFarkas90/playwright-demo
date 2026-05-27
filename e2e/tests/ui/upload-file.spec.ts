@@ -14,7 +14,7 @@ test.describe("Upload file tests", () => {
     await page.goto(PageUrls.UPLOAD_PAGE);
   });
 
-  test("Upload file practice", async ({}, testInfo) => {
+  test("Upload a text file and verify the uploaded filename is displayed in the confirmation", async ({}, testInfo) => {
     const filePath = testInfo.outputPath(uploadFileName);
 
     fs.writeFileSync(filePath, fileContent);

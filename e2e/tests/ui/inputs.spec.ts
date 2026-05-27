@@ -17,22 +17,31 @@ test.describe("Input fields test page", () => {
   });
 
   test("Fill numbers input field, click display inputs and verify the output", async () => {
-    await inputPage.fillNumberInputField(numberValue);
-    await inputPage.clickDisplayInputsButton();
-    const outputFields = inputPage.getOutputFields();
-    await expect(outputFields[0]!).toBeVisible();
-    await expect(outputFields[0]!).toHaveText(numberValue);
+    await test.step("Fill number input field and click display inputs", async () => {
+      await inputPage.fillNumberInputField(numberValue);
+      await inputPage.clickDisplayInputsButton();
+    });
+
+    await test.step("Verify the number value appears in the output field", async () => {
+      const outputFields = inputPage.getOutputFields();
+      await expect(outputFields[0]!).toBeVisible();
+      await expect(outputFields[0]!).toHaveText(numberValue);
+    });
   });
 
   test("Fill all input fields, click display inputs and verify the outputs", async () => {
-    await inputPage.fillAllInputFields(numberValue, textValue, passwordValue, dateValue);
-    await inputPage.clickDisplayInputsButton();
-    const outputFields = inputPage.getOutputFields();
+    await test.step("Fill all input fields and click display inputs", async () => {
+      await inputPage.fillAllInputFields(numberValue, textValue, passwordValue, dateValue);
+      await inputPage.clickDisplayInputsButton();
+    });
 
-    for (const [i, expectedValue] of expectedValues.entries()) {
-      await expect(outputFields[i]!).toBeVisible();
-      await expect(outputFields[i]!).toHaveText(expectedValue);
-    }
+    await test.step("Verify each output field matches the corresponding entered value", async () => {
+      const outputFields = inputPage.getOutputFields();
+      for (const [i, expectedValue] of expectedValues.entries()) {
+        await expect(outputFields[i]!).toBeVisible();
+        await expect(outputFields[i]!).toHaveText(expectedValue);
+      }
+    });
   });
 
   test("Fill all input fields, click clear inputs and verify the outputs are cleared", async () => {

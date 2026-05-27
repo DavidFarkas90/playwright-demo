@@ -11,8 +11,13 @@ test.describe("Drag and drop tests", () => {
     await page.goto(PageUrls.DRAG_AND_DROP_PAGE, { timeout: Timeouts.SLOW_PAGE_NAVIGATION });
   });
 
-  test("Drag and drop", async () => {
-    await dragPage.dragSmallBoxToLargeBox();
-    await expect(dragPage.dropTarget).toContainText("Success!");
+  test("Drag small box onto large box and verify success message is displayed", async () => {
+    await test.step("Drag small box to the large box drop target", async () => {
+      await dragPage.dragSmallBoxToLargeBox();
+    });
+
+    await test.step("Verify the drop target shows a success message", async () => {
+      await expect(dragPage.dropTarget).toContainText("Success!");
+    });
   });
 });
