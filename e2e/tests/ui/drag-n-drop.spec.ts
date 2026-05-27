@@ -1,9 +1,18 @@
 import { expect, test } from "@playwright/test";
+import { DragAndDropPage } from "../../pages/drag-n-drop.page.js";
+import { PageUrls } from "../../constants/page-urls.js";
+import { Timeouts } from "../../constants/timeouts.js";
 
-const URL = "https://commitquality.com/practice-drag-and-drop";
+let dragPage: DragAndDropPage;
 
-test("Drag and drop", async ({ page }) => {
-  await page.goto(URL, { timeout: 10000 });
-  await page.locator("#small-box").dragTo(page.locator(".large-box"));
-  await expect(page.locator(".inside")).toContainText("Success!");
+test.describe("Drag and drop tests", () => {
+  test.beforeEach(async ({ page }) => {
+    dragPage = new DragAndDropPage(page);
+    await page.goto(PageUrls.DRAG_AND_DROP_PAGE, { timeout: Timeouts.SLOW_PAGE_NAVIGATION });
+  });
+
+  test("Drag and drop", async () => {
+    await dragPage.dragSmallBoxToLargeBox();
+    await expect(dragPage.dropTarget).toContainText("Success!");
+  });
 });

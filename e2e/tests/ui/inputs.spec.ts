@@ -3,7 +3,6 @@ import { InputPage } from "../../pages/input.page.js";
 import { PageUrls } from "../../constants/page-urls.js";
 
 let inputPage: InputPage;
-let outputFields: Array<Locator>;
 const numberValue: string = "12345";
 const textValue: string = "Test input";
 const passwordValue: string = "password123";
@@ -19,14 +18,16 @@ test.describe("Input fields test page", () => {
 
   test("Fill numbers input field, click display inputs and verify the output", async () => {
     await inputPage.fillNumberInputField(numberValue);
-    const outputFields = await inputPage.clickDisplayInputsButton();
+    await inputPage.clickDisplayInputsButton();
+    const outputFields = inputPage.getOutputFields();
     await expect(outputFields[0]!).toBeVisible();
     await expect(outputFields[0]!).toHaveText(numberValue);
   });
 
   test("Fill all input fields, click display inputs and verify the outputs", async () => {
     await inputPage.fillAllInputFields(numberValue, textValue, passwordValue, dateValue);
-    const outputFields = await inputPage.clickDisplayInputsButton();
+    await inputPage.clickDisplayInputsButton();
+    const outputFields = inputPage.getOutputFields();
 
     for (const [i, expectedValue] of expectedValues.entries()) {
       await expect(outputFields[i]!).toBeVisible();
@@ -35,9 +36,12 @@ test.describe("Input fields test page", () => {
   });
 
   test("Fill all input fields, click clear inputs and verify the outputs are cleared", async () => {
+    let outputFields: Locator[];
+
     await test.step("Fill all input fields and click display inputs", async () => {
       await inputPage.fillAllInputFields(numberValue, textValue, passwordValue, dateValue);
-      outputFields = await inputPage.clickDisplayInputsButton();
+      await inputPage.clickDisplayInputsButton();
+      outputFields = inputPage.getOutputFields();
     });
 
     await test.step("Validate the input values are displayed", async () => {
@@ -49,7 +53,8 @@ test.describe("Input fields test page", () => {
 
     await test.step("Click clear inputs and validate the output fields are cleared", async () => {
       await inputPage.clickClearInputsButton();
-      outputFields = await inputPage.clickDisplayInputsButton();
+      await inputPage.clickDisplayInputsButton();
+      outputFields = inputPage.getOutputFields();
 
       for (const outputField of outputFields) {
         await expect(outputField).toBeVisible();

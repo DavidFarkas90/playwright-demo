@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
+import { ApiUrls } from "../../constants/api-urls.js";
+import { HttpStatusCodes } from "../../constants/http-status-codes.js";
 
-const URL = "https://jsonplaceholder.typicode.com";
 const TITLE = "Testing posts";
 
 const USERS = [
@@ -28,28 +29,31 @@ const USERS = [
     email: "Julianne.OConner@kory.org",
   },
 ];
-for (const USER of USERS) {
-  test(`GET user with id: ${USER.id}`, async ({ request }) => {
-    const response = await request.get(`${URL}/users/${USER.id}`);
-    expect(response).toBeTruthy();
-    expect(response.ok()).toBeTruthy();
-    expect(response.status()).toBe(200);
-    const responseBody = await response.json();
-    expect(responseBody).toHaveProperty("name", `${USER.name}`);
-    expect(responseBody.username).toEqual(`${USER.username}`);
-  });
-}
 
-test("Create new post", async ({ request }) => {
-  const newUserResponse = await request.post(`${URL}/posts`, {
-    data: {
-      title: TITLE,
-      body: "this is my body",
-      userId: 1,
-    },
+test.describe("JSONPlaceholder API tests", () => {
+  for (const USER of USERS) {
+    test(`GET user with id: ${USER.id}`, async ({ request }) => {
+      const response = await request.get(`${ApiUrls.JSON_PLACEHOLDER_BASE}/users/${USER.id}`);
+      expect(response).toBeTruthy();
+      expect(response.ok()).toBeTruthy();
+      expect(response.status()).toBe(HttpStatusCodes.OK);
+      const responseBody = await response.json();
+      expect(responseBody).toHaveProperty("name", `${USER.name}`);
+      expect(responseBody.username).toEqual(`${USER.username}`);
+    });
+  }
+
+  test("Create new post", async ({ request }) => {
+    const newUserResponse = await request.post(`${ApiUrls.JSON_PLACEHOLDER_BASE}/posts`, {
+      data: {
+        title: TITLE,
+        body: "this is my body",
+        userId: 1,
+      },
+    });
+    expect(newUserResponse.ok()).toBeTruthy();
+    const responseBody = await newUserResponse.json();
+    expect(responseBody.id).toEqual(101);
+    expect(responseBody.title).toEqual(TITLE);
   });
-  expect(newUserResponse.ok()).toBeTruthy();
-  const responseBody = await newUserResponse.json();
-  expect(responseBody.id).toEqual(101);
-  expect(responseBody.title).toEqual(TITLE);
 });

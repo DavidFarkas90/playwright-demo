@@ -21,7 +21,7 @@ test.describe("Login page tests", () => {
       await loginPage.clickLoginButton();
 
       const errorMessage = await loginPage.getAlertMessage();
-      expect(loginPage.isAlertVisible()).toBeTruthy();
+      expect(await loginPage.isAlertVisible()).toBeTruthy();
       expect(errorMessage, LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT).toEqual(
         LoginPageLabels.YOUR_USERNAME_IS_INVALID,
       );
@@ -35,7 +35,7 @@ test.describe("Login page tests", () => {
       await loginPage.clickLoginButton();
 
       const errorMessage = await loginPage.getAlertMessage();
-      expect(loginPage.isAlertVisible()).toBeTruthy();
+      expect(await loginPage.isAlertVisible()).toBeTruthy();
       expect(errorMessage, LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT).toEqual(
         LoginPageLabels.YOUR_PASSWORD_IS_INVALID,
       );
@@ -47,7 +47,7 @@ test.describe("Login page tests", () => {
       await loginPage.login(USERNAME, PASSWORD);
 
       const loggedInMessage = await loginPage.getAlertMessage();
-      expect(loginPage.isAlertVisible()).toBeTruthy();
+      expect(await loginPage.isAlertVisible()).toBeTruthy();
       expect(loggedInMessage, LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT).toEqual(
         LoginPageLabels.YOU_LOGGED_INTO_A_SECURE_AREA,
       );
@@ -57,7 +57,7 @@ test.describe("Login page tests", () => {
   test("Logout after successful login", async () => {
     await test.step("Login with valid credentials, click logout and verify login page is displayed", async () => {
       await loginPage.login(USERNAME, PASSWORD);
-      await loginPage.logoutButton.isVisible();
+      await expect(loginPage.alert).toBeVisible();
       await loginPage.clickLogoutButton();
 
       const loggedOutMessage = await loginPage.getAlertMessage();

@@ -1,17 +1,39 @@
 import { test, expect } from "@playwright/test";
+import { HerokuDynamicLoadingPage } from "../../pages/heroku-dynamic-loading.page.js";
+import { CommitQualityDynamicLoadingPage } from "../../pages/commit-quality-dynamic-loading.page.js";
+import { PageUrls } from "../../constants/page-urls.js";
+import { Timeouts } from "../../constants/timeouts.js";
 
-test("heroku dynamic loading", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com/dynamic_loading/1");
-  await page.getByRole("button", { name: "Start" }).click();
-  await expect(page.locator("#loading").getByRole("img")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Hello World!" })).toBeVisible({ timeout: 6000 });
-});
+test.describe("Dynamic loading tests", () => {
+  test.describe("Heroku", () => {
+    let herokuPage: HerokuDynamicLoadingPage;
 
-test("commit quailty dynamic loading", async ({ page }) => {
-  await page.goto("https://commitquality.com/practice-dyanmic-text");
-  await page.getByRole("button", { name: "Always visible" }).click();
-  await expect(page.getByRole("button", { name: "loading" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "I am visible after 5 seconds" })).toBeVisible({
-    timeout: 6000,
+    test.beforeEach(async ({ page }) => {
+      herokuPage = new HerokuDynamicLoadingPage(page);
+      await page.goto(PageUrls.HEROKU_DYNAMIC_LOADING_PAGE);
+    });
+
+    test("heroku dynamic loading", async () => {
+      await herokuPage.clickStart();
+      await expect(herokuPage.loadingSpinner).toBeVisible();
+      await expect(herokuPage.helloWorldHeading).toBeVisible({ timeout: Timeouts.DYNAMIC_LOADING });
+    });
+  });
+
+  test.describe("Commitquality", () => {
+    let commitQualityPage: CommitQualityDynamicLoadingPage;
+
+    test.beforeEach(async ({ page }) => {
+      commitQualityPage = new CommitQualityDynamicLoadingPage(page);
+      await page.goto(PageUrls.COMMIT_QUALITY_DYNAMIC_LOADING_PAGE);
+    });
+
+    test("commit quality dynamic loading", async () => {
+      await commitQualityPage.clickAlwaysVisible();
+      await expect(commitQualityPage.loadingButton).toBeVisible();
+      await expect(commitQualityPage.delayedButton).toBeVisible({
+        timeout: Timeouts.DYNAMIC_LOADING,
+      });
+    });
   });
 });
