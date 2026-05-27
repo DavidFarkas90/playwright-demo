@@ -1,4 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
+import { HoverPageLabels } from "../constants/hover-page-labels.js";
 
 export class HoverPage {
   readonly page: Page;
@@ -10,10 +11,11 @@ export class HoverPage {
   constructor(page: Page) {
     this.page = page;
     this.pageTitle = page.locator(".page-layout h1", {
-      hasText: "Hovers page for Automation Testing Practice",
+      hasText: HoverPageLabels.PAGE_TITLE,
     });
     this.userImage = (userId: number) => page.getByTestId(`img-user-${userId}`);
-    this.userName = (userId: number) => page.getByRole("heading", { name: `name: user${userId}` });
+    this.userName = (userId: number) =>
+      page.getByRole("heading", { name: HoverPageLabels.USER_NAME(userId) });
     this.userProfileLink = (userId: number) =>
       page.getByRole("link", { name: "View profile" }).nth(userId - 1);
   }

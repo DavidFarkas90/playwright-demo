@@ -35,9 +35,12 @@ export class InputPage {
     return await this.pageTitle.innerText();
   }
 
-  async clickDisplayInputsButton(): Promise<Locator[]> {
+  async clickDisplayInputsButton(): Promise<void> {
     await this.displayInputsButton.click();
-    return <Array<Locator>>[
+  }
+
+  getOutputFields(): Locator[] {
+    return [
       this.numberOutputField,
       this.textOutputField,
       this.passwordOutputField,
