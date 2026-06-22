@@ -11,7 +11,7 @@ const fileContent: string = "This is a test file for upload practice.";
 test.describe("Upload file tests", () => {
   test.beforeEach(async ({ page }) => {
     uploadPage = new UploadPracticePage(page);
-    await page.goto(PageUrls.UPLOAD_PAGE);
+    await page.goto(PageUrls.UPLOAD_PAGE());
   });
 
   test("Upload a text file and verify the uploaded filename is displayed in the confirmation", async ({}, testInfo) => {

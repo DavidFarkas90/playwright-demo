@@ -1,7 +1,7 @@
 import { type Locator, type Page } from "@playwright/test";
+import { BasePage } from "./base.page.js";
 
-export class InputPage {
-  readonly page: Page;
+export class InputPage extends BasePage {
   readonly pageTitle: Locator;
   readonly displayInputsButton: Locator;
   readonly clearInputsButton: Locator;
@@ -15,7 +15,7 @@ export class InputPage {
   readonly dateOutputField: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.pageTitle = page.locator(".container h1", {
       hasText: "Web inputs page for Automation Testing Practice",
     });
@@ -29,10 +29,6 @@ export class InputPage {
     this.textOutputField = page.locator("#output-text");
     this.passwordOutputField = page.locator("#output-password");
     this.dateOutputField = page.locator("#output-date");
-  }
-
-  async getPageTitle(): Promise<string> {
-    return await this.pageTitle.innerText();
   }
 
   async clickDisplayInputsButton(): Promise<void> {

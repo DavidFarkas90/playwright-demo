@@ -10,7 +10,7 @@ const USER_COUNT: number = 3;
 test.describe("Hover page tests", () => {
   test.beforeEach(async ({ page }) => {
     hoverPage = new HoverPage(page);
-    await page.goto(PageUrls.HOVER_PAGE);
+    await page.goto(PageUrls.HOVER_PAGE());
   });
 
   test("Hover over user images and verify user names are displayed", async () => {

@@ -10,7 +10,7 @@ let loginPage: LoginPage;
 
 test.describe("Login page tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(PageUrls.LOGIN_PAGE);
+    await page.goto(PageUrls.LOGIN_PAGE());
     loginPage = new LoginPage(page);
   });
 

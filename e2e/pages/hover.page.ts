@@ -1,15 +1,15 @@
 import { type Locator, type Page } from "@playwright/test";
+import { BasePage } from "./base.page.js";
 import { HoverPageLabels } from "../constants/hover-page-labels.js";
 
-export class HoverPage {
-  readonly page: Page;
+export class HoverPage extends BasePage {
   readonly pageTitle: Locator;
   readonly userImage: (userId: number) => Locator;
   readonly userName: (userId: number) => Locator;
   readonly userProfileLink: (userId: number) => Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.pageTitle = page.locator(".page-layout h1", {
       hasText: HoverPageLabels.PAGE_TITLE,
     });
@@ -18,10 +18,6 @@ export class HoverPage {
       page.getByRole("heading", { name: HoverPageLabels.USER_NAME(userId) });
     this.userProfileLink = (userId: number) =>
       page.getByRole("link", { name: "View profile" }).nth(userId - 1);
-  }
-
-  async getPageTitle(): Promise<string> {
-    return await this.pageTitle.innerText();
   }
 
   async hoverOverUserImage(userId: number) {

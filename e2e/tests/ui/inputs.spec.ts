@@ -1,17 +1,20 @@
 import { test, expect, type Locator } from "@playwright/test";
 import { InputPage } from "../../pages/input.page.js";
 import { PageUrls } from "../../constants/page-urls.js";
+import { TestData } from "../../data/test-data.js";
 
 let inputPage: InputPage;
-const numberValue: string = "12345";
-const textValue: string = "Test input";
-const passwordValue: string = "password123";
-const dateValue: string = "2024-01-01";
+const {
+  NUMBER: numberValue,
+  TEXT: textValue,
+  PASSWORD: passwordValue,
+  DATE: dateValue,
+} = TestData.INPUT_FIELDS;
 const expectedValues: Array<string> = [numberValue, textValue, passwordValue, dateValue];
 
 test.describe("Input fields test page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(PageUrls.INPUT_PAGE);
+    await page.goto(PageUrls.INPUT_PAGE());
     inputPage = new InputPage(page);
     await expect(inputPage.pageTitle).toBeVisible();
   });

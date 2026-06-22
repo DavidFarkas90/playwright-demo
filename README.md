@@ -2,18 +2,16 @@
 
 A senior-level end-to-end test automation framework built with [Playwright](https://playwright.dev/) and TypeScript. The goal of this project is to demonstrate and practice real-world QA automation patterns: Page Object Model, typed constants, API testing, and advanced UI interactions.
 
-Tests run against publicly available practice sites:
+Tests run against a publicly available practice site:
 
 - [practice.expandtesting.com](https://practice.expandtesting.com)
-- [the-internet.herokuapp.com](https://the-internet.herokuapp.com)
-- [commitquality.com](https://commitquality.com)
 
 ## Features
 
-- Page Object Model (POM) — every page has a dedicated class, no raw locators in tests
-- Typed constants for URLs, labels, timeouts, and HTTP status codes
-- UI tests: login/logout, hover, file upload, drag-and-drop, dynamic loading, input fields
-- API tests using Playwright's request context
+- Page Object Model (POM) — every page has a dedicated class extending a shared `BasePage`, no raw locators in tests
+- Typed constants for URLs, labels, and HTTP status codes, plus a centralized test-data file
+- UI tests: login/logout, hover, file upload, input fields, dropdowns, checkboxes, radio buttons, JavaScript dialogs, dynamic tables, add/remove elements
+- API tests using Playwright's request context, wrapped in a typed service layer
 - TypeScript throughout
 - ESLint + Prettier with Husky pre-commit hooks
 - HTML test reports with Playwright Trace Viewer support
@@ -27,9 +25,14 @@ e2e/
 │   ├── api-urls.ts              # Base URLs for API endpoints
 │   ├── http-status-codes.ts     # HTTP response status codes
 │   ├── page-urls.ts             # Full URLs for UI pages
-│   ├── timeouts.ts              # Named timeout values
 │   └── *-page-labels.ts        # Page titles, button labels, alert messages
-├── pages/                       # Page Object Model classes
+├── data/
+│   └── test-data.ts             # Centralized non-secret test data (form values, counts)
+├── pages/
+│   ├── base.page.ts             # Shared base class for all page objects
+│   └── *.page.ts                # Page Object Model classes
+├── services/
+│   └── users-api.ts             # Typed service wrapper over the request context
 ├── tests/
 │   ├── api/                     # API-level tests
 │   └── ui/                      # UI end-to-end tests
@@ -116,7 +119,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 - [x] Use `async`/`await` correctly throughout
 - [x] Type method return values (`Promise<void>`, `Promise<string>`, `Promise<boolean>`)
 - [x] Use `readonly` for locator properties
-- [ ] Use interfaces or base classes to share common page behavior
+- [x] Use interfaces or base classes to share common page behavior
 
 ---
 
@@ -126,7 +129,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 - [x] **Single Responsibility** — one page object per page or component
 - [x] **Separation of concerns** — actions and queries are separate methods; assertions stay in tests
 - [x] **DRY** — composite methods (`login()`, `fillAllInputFields()`) eliminate repeated steps
-- [ ] **Inheritance / Composition** — share common behavior across page objects via a `BasePage`
+- [x] **Inheritance / Composition** — share common behavior across page objects via a `BasePage`
 
 ---
 
@@ -149,7 +152,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 - [x] Extract timeout values into `timeouts.ts`
 - [x] Extract HTTP status codes into `http-status-codes.ts`
 - [x] Extract API base URLs into `api-urls.ts`
-- [ ] Centralize test data (usernames, form values) into a dedicated data file
+- [x] Centralize test data (usernames, form values) into a dedicated data file
 
 ---
 
@@ -158,7 +161,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 - [x] Use Playwright's `request` context for HTTP calls (no extra libraries needed)
 - [x] Write GET request tests and validate response status and body
 - [x] Write POST request tests and validate the created resource
-- [ ] Create an API layer — wrap `request` calls in typed service classes (e.g. `UsersApi`) so tests never call `request.get/post` directly, mirroring the POM pattern for UI
+- [x] Create an API layer — wrap `request` calls in typed service classes (e.g. `UsersApi`) so tests never call `request.get/post` directly, mirroring the POM pattern for UI
 - [ ] Intercept and stub API requests from a UI test
 - [ ] Assert that UI state updates correctly in response to an API call
 - [ ] Combine API setup (create data via API) with UI verification
@@ -206,11 +209,11 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 
 #### Day 6–7: Advanced UI Interactions
 
-- [ ] Handle alerts & dialogs
+- [x] Handle alerts & dialogs
 - [x] Implement file upload test
 - [x] Test hover interactions
 - [x] Implement drag-and-drop test
-- [ ] Work with tables
+- [x] Work with tables
 - [ ] Add reusable helper functions
 
 ---

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { ApiUrls } from "../../constants/api-urls.js";
+import { UsersApi } from "../../services/users-api.js";
 import { HttpStatusCodes } from "../../constants/http-status-codes.js";
 
 const TITLE = "Testing posts";
@@ -35,10 +35,11 @@ test.describe("JSONPlaceholder API tests", () => {
     test(`GET user with id ${USER.id} and verify name and username in response`, async ({
       request,
     }) => {
+      const usersApi = new UsersApi(request);
       let responseBody: Record<string, unknown> = {};
 
       await test.step(`Send GET request for user ${USER.id} and verify HTTP 200 status`, async () => {
-        const response = await request.get(`${ApiUrls.JSON_PLACEHOLDER_BASE}/users/${USER.id}`);
+        const response = await usersApi.getUser(USER.id);
         expect(response).toBeTruthy();
         expect(response.ok()).toBeTruthy();
         expect(response.status()).toBe(HttpStatusCodes.OK);
@@ -55,18 +56,18 @@ test.describe("JSONPlaceholder API tests", () => {
   test("Create a new post and verify the response contains the correct id and title", async ({
     request,
   }) => {
+    const usersApi = new UsersApi(request);
     let responseBody: Record<string, unknown> = {};
 
     await test.step("Send POST request with post data", async () => {
-      const newUserResponse = await request.post(`${ApiUrls.JSON_PLACEHOLDER_BASE}/posts`, {
-        data: {
-          title: TITLE,
-          body: "this is my body",
-          userId: 1,
-        },
+      const newPostResponse = await usersApi.createPost({
+        title: TITLE,
+        body: "this is my body",
+        userId: 1,
       });
-      expect(newUserResponse.ok()).toBeTruthy();
-      responseBody = await newUserResponse.json();
+      expect(newPostResponse.ok()).toBeTruthy();
+      expect(newPostResponse.status()).toBe(HttpStatusCodes.CREATED);
+      responseBody = await newPostResponse.json();
     });
 
     await test.step("Verify the created post has the expected id and title", async () => {
