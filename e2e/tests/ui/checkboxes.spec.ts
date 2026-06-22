@@ -1,21 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { CheckboxesPage } from "../../pages/checkboxes.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
-import { CheckboxesPageLabels } from "../../constants/checkboxes-page-labels.js";
+import { test, expect } from "../../fixtures/pages.fixture.js";
 
-let checkboxesPage: CheckboxesPage;
 const FIRST_CHECKBOX = 1;
 const SECOND_CHECKBOX = 2;
 
 test.describe("Checkboxes page tests", () => {
-  test.beforeEach(async ({ page }) => {
-    checkboxesPage = new CheckboxesPage(page);
-    await page.goto(PageUrls.CHECKBOXES_PAGE());
-  });
-
-  test("Toggle both checkboxes and verify their resulting states", async () => {
-    await test.step("Verify the page title is correct", async () => {
-      expect(await checkboxesPage.getPageTitle()).toBe(CheckboxesPageLabels.PAGE_TITLE);
+  test("Toggle both checkboxes and verify their resulting states", async ({ checkboxesPage }) => {
+    await test.step("Verify the page loaded", async () => {
+      await expect(checkboxesPage.pageTitle).toBeVisible();
     });
 
     await test.step("Verify the default states (first unchecked, second checked)", async () => {

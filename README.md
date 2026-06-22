@@ -12,6 +12,8 @@ Tests run against a publicly available practice site:
 - Typed constants for URLs, labels, and HTTP status codes, plus a centralized test-data file
 - UI tests: login/logout, hover, file upload, input fields, dropdowns, checkboxes, radio buttons, JavaScript dialogs, dynamic tables, add/remove elements
 - API tests using Playwright's request context, wrapped in a typed service layer
+- Page-object fixtures (`test.extend`) and reusable authentication via `storageState`
+- Screenshots and video retained automatically on test failure
 - TypeScript throughout
 - ESLint + Prettier with Husky pre-commit hooks
 - HTML test reports with Playwright Trace Viewer support
@@ -28,6 +30,10 @@ e2e/
 │   └── *-page-labels.ts        # Page titles, button labels, alert messages
 ├── data/
 │   └── test-data.ts             # Centralized non-secret test data (form values, counts)
+├── fixtures/
+│   ├── pages.fixture.ts         # Page-object fixtures (navigation + instantiation)
+│   ├── auth.fixture.ts          # Authenticated test variant (worker-scoped login)
+│   └── auth.ts                  # Path to the saved authentication storage state
 ├── pages/
 │   ├── base.page.ts             # Shared base class for all page objects
 │   └── *.page.ts                # Page Object Model classes
@@ -170,12 +176,12 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 
 ### Stage 7: Advanced Patterns
 
-- [ ] Implement a logged-in user fixture using `test.extend` to avoid repeating login steps
-- [ ] Reuse authentication state across tests with `storageState`
+- [x] Implement a logged-in user fixture using `test.extend` to avoid repeating login steps
+- [x] Reuse authentication state across tests with `storageState`
 - [ ] Write data-driven tests using a test data array with `test.each` or a `for...of` loop
 - [ ] Add visual regression tests
 - [ ] Use Trace Viewer to debug failing tests
-- [ ] Capture screenshots and videos on failure
+- [x] Capture screenshots and videos on failure
 - [ ] Dockerize the test suite
 
 ---
@@ -229,8 +235,8 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 
 #### Day 10: Fixtures & Architecture
 
-- [ ] Implement logged-in user fixture
-- [ ] Refactor tests to use fixtures
+- [x] Implement logged-in user fixture
+- [x] Refactor tests to use fixtures
 
 #### Day 11: API + UI Testing
 
@@ -248,7 +254,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 
 - [x] Enable HTML reports
 - [ ] Use Trace Viewer
-- [ ] Capture screenshots on failure
+- [x] Capture screenshots on failure
 
 #### Day 14: Final Project Polish
 
@@ -264,7 +270,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 #### Architecture
 
 - [x] Page Object Model implemented
-- [ ] Fixtures used properly
+- [x] Fixtures used properly
 
 #### Stability
 

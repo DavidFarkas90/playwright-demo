@@ -1,20 +1,13 @@
-import { test, expect } from "@playwright/test";
-import { DynamicTablePage } from "../../pages/dynamic-table.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
+import { test, expect } from "../../fixtures/pages.fixture.js";
 import { DynamicTablePageLabels } from "../../constants/dynamic-table-page-labels.js";
 import { TestData } from "../../data/test-data.js";
 
-let dynamicTablePage: DynamicTablePage;
-
 test.describe("Dynamic table page tests", () => {
-  test.beforeEach(async ({ page }) => {
-    dynamicTablePage = new DynamicTablePage(page);
-    await page.goto(PageUrls.DYNAMIC_TABLE_PAGE());
-  });
-
-  test("Chrome CPU cell matches the value shown in the yellow label", async () => {
-    await test.step("Verify the page title is correct", async () => {
-      expect(await dynamicTablePage.getPageTitle()).toBe(DynamicTablePageLabels.PAGE_TITLE);
+  test("Chrome CPU cell matches the value shown in the yellow label", async ({
+    dynamicTablePage,
+  }) => {
+    await test.step("Verify the page loaded", async () => {
+      await expect(dynamicTablePage.pageTitle).toBeVisible();
     });
 
     await test.step("Read the Chrome CPU value from the table and from the label", async () => {

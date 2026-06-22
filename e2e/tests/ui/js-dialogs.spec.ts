@@ -1,18 +1,9 @@
-import { test, expect } from "@playwright/test";
-import { JsDialogsPage } from "../../pages/js-dialogs.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
+import { test, expect } from "../../fixtures/pages.fixture.js";
 import { JsDialogsPageLabels } from "../../constants/js-dialogs-page-labels.js";
 import { TestData } from "../../data/test-data.js";
 
-let jsDialogsPage: JsDialogsPage;
-
 test.describe("JavaScript dialogs page tests", () => {
-  test.beforeEach(async ({ page }) => {
-    jsDialogsPage = new JsDialogsPage(page);
-    await page.goto(PageUrls.JS_DIALOGS_PAGE());
-  });
-
-  test("Accept an alert dialog", async () => {
+  test("Accept an alert dialog", async ({ jsDialogsPage }) => {
     await test.step("Register the handler and trigger the alert", async () => {
       await jsDialogsPage.handleNextDialog(true);
       await jsDialogsPage.clickAlert();
@@ -25,7 +16,7 @@ test.describe("JavaScript dialogs page tests", () => {
     });
   });
 
-  test("Accept a confirm dialog", async () => {
+  test("Accept a confirm dialog", async ({ jsDialogsPage }) => {
     await test.step("Register the handler and trigger the confirm", async () => {
       await jsDialogsPage.handleNextDialog(true);
       await jsDialogsPage.clickConfirm();
@@ -38,7 +29,7 @@ test.describe("JavaScript dialogs page tests", () => {
     });
   });
 
-  test("Dismiss a confirm dialog", async () => {
+  test("Dismiss a confirm dialog", async ({ jsDialogsPage }) => {
     await test.step("Register the handler and trigger the confirm", async () => {
       await jsDialogsPage.handleNextDialog(false);
       await jsDialogsPage.clickConfirm();
@@ -51,7 +42,7 @@ test.describe("JavaScript dialogs page tests", () => {
     });
   });
 
-  test("Enter text into a prompt dialog", async () => {
+  test("Enter text into a prompt dialog", async ({ jsDialogsPage }) => {
     await test.step("Register the handler with text and trigger the prompt", async () => {
       await jsDialogsPage.handleNextDialog(true, TestData.PROMPT_TEXT);
       await jsDialogsPage.clickPrompt();

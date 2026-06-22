@@ -1,6 +1,7 @@
 export const PageUrls = {
   BASE_URL: "https://practice.expandtesting.com",
   LOGIN_PAGE: () => `${PageUrls.BASE_URL}/login`,
+  SECURE_PAGE: () => `${PageUrls.BASE_URL}/secure`,
   UPLOAD_PAGE: () => `${PageUrls.BASE_URL}/upload`,
   INPUT_PAGE: () => `${PageUrls.BASE_URL}/inputs`,
   HOVER_PAGE: () => `${PageUrls.BASE_URL}/hovers`,

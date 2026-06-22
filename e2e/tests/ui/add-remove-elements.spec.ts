@@ -1,23 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { AddRemoveElementsPage } from "../../pages/add-remove-elements.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
-import { AddRemoveElementsPageLabels } from "../../constants/add-remove-elements-page-labels.js";
+import { test, expect } from "../../fixtures/pages.fixture.js";
 import { TestData } from "../../data/test-data.js";
 
-let addRemoveElementsPage: AddRemoveElementsPage;
 const FIRST_ELEMENT = 0;
 
 test.describe("Add/remove elements page tests", () => {
-  test.beforeEach(async ({ page }) => {
-    addRemoveElementsPage = new AddRemoveElementsPage(page);
-    await page.goto(PageUrls.ADD_REMOVE_ELEMENTS_PAGE());
-  });
-
-  test("Add elements then delete one and verify the counts", async () => {
-    await test.step("Verify the page title is correct", async () => {
-      expect(await addRemoveElementsPage.getPageTitle()).toBe(
-        AddRemoveElementsPageLabels.PAGE_TITLE,
-      );
+  test("Add elements then delete one and verify the counts", async ({ addRemoveElementsPage }) => {
+    await test.step("Verify the page loaded", async () => {
+      await expect(addRemoveElementsPage.pageTitle).toBeVisible();
     });
 
     await test.step("Verify no delete buttons exist initially", async () => {

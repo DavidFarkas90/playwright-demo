@@ -1,20 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "../../pages/login.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
+import { test, expect } from "../../fixtures/pages.fixture.js";
 import { LoginPageLabels } from "../../constants/login-page-labels.js";
 
 const USERNAME: string = process.env.EXPAND_TESTING_USERNAME ?? "username-not-set";
 const PASSWORD: string = process.env.EXPAND_TESTING_PASSWORD ?? "password-not-set";
 const INVALID_PASSWORD: string = "invalid-password";
-let loginPage: LoginPage;
 
 test.describe("Login page tests", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(PageUrls.LOGIN_PAGE());
-    loginPage = new LoginPage(page);
-  });
-
-  test("Try login with invalid credentials", async () => {
+  test("Try login with invalid credentials", async ({ loginPage }) => {
     await test.step("Submit login form with empty username and password", async () => {
       await loginPage.enterUsername("");
       await loginPage.enterPassword("");
@@ -30,7 +22,7 @@ test.describe("Login page tests", () => {
     });
   });
 
-  test("Try login with valid username and invalid password", async () => {
+  test("Try login with valid username and invalid password", async ({ loginPage }) => {
     await test.step("Submit login form with valid username and invalid password", async () => {
       await loginPage.enterUsername(USERNAME);
       await loginPage.enterPassword(INVALID_PASSWORD);
@@ -46,7 +38,7 @@ test.describe("Login page tests", () => {
     });
   });
 
-  test("Login with valid credentials", async () => {
+  test("Login with valid credentials", async ({ loginPage }) => {
     await test.step("Submit login form with valid credentials", async () => {
       await loginPage.login(USERNAME, PASSWORD);
     });
@@ -60,7 +52,7 @@ test.describe("Login page tests", () => {
     });
   });
 
-  test("Logout after successful login", async () => {
+  test("Logout after successful login", async ({ loginPage }) => {
     await test.step("Log in with valid credentials and click logout", async () => {
       await loginPage.login(USERNAME, PASSWORD);
       await expect(loginPage.alert).toBeVisible();

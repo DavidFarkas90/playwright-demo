@@ -1,9 +1,7 @@
-import { test, expect, type Locator } from "@playwright/test";
-import { InputPage } from "../../pages/input.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
+import { test, expect } from "../../fixtures/pages.fixture.js";
+import { type Locator } from "@playwright/test";
 import { TestData } from "../../data/test-data.js";
 
-let inputPage: InputPage;
 const {
   NUMBER: numberValue,
   TEXT: textValue,
@@ -13,13 +11,13 @@ const {
 const expectedValues: Array<string> = [numberValue, textValue, passwordValue, dateValue];
 
 test.describe("Input fields test page", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(PageUrls.INPUT_PAGE());
-    inputPage = new InputPage(page);
-    await expect(inputPage.pageTitle).toBeVisible();
-  });
+  test("Fill numbers input field, click display inputs and verify the output", async ({
+    inputPage,
+  }) => {
+    await test.step("Verify the page loaded", async () => {
+      await expect(inputPage.pageTitle).toBeVisible();
+    });
 
-  test("Fill numbers input field, click display inputs and verify the output", async () => {
     await test.step("Fill number input field and click display inputs", async () => {
       await inputPage.fillNumberInputField(numberValue);
       await inputPage.clickDisplayInputsButton();
@@ -32,7 +30,9 @@ test.describe("Input fields test page", () => {
     });
   });
 
-  test("Fill all input fields, click display inputs and verify the outputs", async () => {
+  test("Fill all input fields, click display inputs and verify the outputs", async ({
+    inputPage,
+  }) => {
     await test.step("Fill all input fields and click display inputs", async () => {
       await inputPage.fillAllInputFields(numberValue, textValue, passwordValue, dateValue);
       await inputPage.clickDisplayInputsButton();
@@ -47,7 +47,9 @@ test.describe("Input fields test page", () => {
     });
   });
 
-  test("Fill all input fields, click clear inputs and verify the outputs are cleared", async () => {
+  test("Fill all input fields, click clear inputs and verify the outputs are cleared", async ({
+    inputPage,
+  }) => {
     let outputFields: Locator[];
 
     await test.step("Fill all input fields and click display inputs", async () => {

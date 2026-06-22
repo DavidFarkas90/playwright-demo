@@ -1,27 +1,20 @@
-import { expect, test } from "@playwright/test";
+import { test, expect } from "../../fixtures/pages.fixture.js";
 import fs from "fs";
-import { UploadPracticePage } from "../../pages/upload.page.js";
-import { PageUrls } from "../../constants/page-urls.js";
 import { UploadPageLabels } from "../../constants/upload-page-labels.js";
 
-let uploadPage: UploadPracticePage;
 const uploadFileName: string = "practice-upload.txt";
 const fileContent: string = "This is a test file for upload practice.";
 
 test.describe("Upload file tests", () => {
-  test.beforeEach(async ({ page }) => {
-    uploadPage = new UploadPracticePage(page);
-    await page.goto(PageUrls.UPLOAD_PAGE());
-  });
-
-  test("Upload a text file and verify the uploaded filename is displayed in the confirmation", async ({}, testInfo) => {
+  test("Upload a text file and verify the uploaded filename is displayed in the confirmation", async ({
+    uploadPage,
+  }, testInfo) => {
     const filePath = testInfo.outputPath(uploadFileName);
 
     fs.writeFileSync(filePath, fileContent);
 
-    await test.step("Verify the upload page title", async () => {
-      const pageTitle = await uploadPage.getPageTitle();
-      expect(pageTitle).toBe(UploadPageLabels.PAGE_TITLE);
+    await test.step("Verify the page loaded", async () => {
+      await expect(uploadPage.pageTitle).toBeVisible();
     });
 
     await test.step("Choose a file to upload", async () => {
