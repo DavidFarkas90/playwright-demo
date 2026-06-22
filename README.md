@@ -10,9 +10,11 @@ Tests run against a publicly available practice site:
 
 - Page Object Model (POM) — every page has a dedicated class extending a shared `BasePage`, no raw locators in tests
 - Typed constants for URLs, labels, and HTTP status codes, plus a centralized test-data file
-- UI tests: login/logout, hover, file upload, input fields, dropdowns, checkboxes, radio buttons, JavaScript dialogs, dynamic tables, add/remove elements
+- UI tests: login/logout, hover, file upload, input fields, dropdowns, checkboxes, radio buttons, JavaScript dialogs, dynamic tables, paginated/searchable tables, add/remove elements, tooltips, key presses
 - API tests using Playwright's request context, wrapped in a typed service layer
 - Page-object fixtures (`test.extend`) and reusable authentication via `storageState`
+- Network interception (`page.route`) to block ad/tracker requests — faster, less flaky runs
+- Data-driven tests via `for...of` over a dataset
 - Screenshots and video retained automatically on test failure
 - TypeScript throughout
 - ESLint + Prettier with Husky pre-commit hooks
@@ -178,7 +180,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 
 - [x] Implement a logged-in user fixture using `test.extend` to avoid repeating login steps
 - [x] Reuse authentication state across tests with `storageState`
-- [ ] Write data-driven tests using a test data array with `test.each` or a `for...of` loop
+- [x] Write data-driven tests using a test data array with `test.each` or a `for...of` loop
 - [ ] Add visual regression tests
 - [ ] Use Trace Viewer to debug failing tests
 - [x] Capture screenshots and videos on failure

@@ -10,5 +10,8 @@ export const PageUrls = {
   RADIO_BUTTONS_PAGE: () => `${PageUrls.BASE_URL}/radio-buttons`,
   JS_DIALOGS_PAGE: () => `${PageUrls.BASE_URL}/js-dialogs`,
   DYNAMIC_TABLE_PAGE: () => `${PageUrls.BASE_URL}/dynamic-table`,
+  DYNAMIC_PAGINATION_TABLE_PAGE: () => `${PageUrls.BASE_URL}/dynamic-pagination-table`,
   ADD_REMOVE_ELEMENTS_PAGE: () => `${PageUrls.BASE_URL}/add-remove-elements`,
+  TOOLTIPS_PAGE: () => `${PageUrls.BASE_URL}/tooltips`,
+  KEY_PRESSES_PAGE: () => `${PageUrls.BASE_URL}/key-presses`,
 };

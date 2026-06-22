@@ -8,8 +8,8 @@
     "open:ui-mode": "npx playwright test --ui",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix --max-warnings 0",
     "prepare": "husky"
   },
   "lint-staged": {

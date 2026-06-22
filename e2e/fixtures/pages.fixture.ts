@@ -10,7 +10,10 @@ import { CheckboxesPage } from "../pages/checkboxes.page.js";
 import { RadioButtonsPage } from "../pages/radio-buttons.page.js";
 import { JsDialogsPage } from "../pages/js-dialogs.page.js";
 import { DynamicTablePage } from "../pages/dynamic-table.page.js";
+import { DynamicPaginationTablePage } from "../pages/dynamic-pagination-table.page.js";
 import { AddRemoveElementsPage } from "../pages/add-remove-elements.page.js";
+import { TooltipsPage } from "../pages/tooltips.page.js";
+import { KeyPressesPage } from "../pages/key-presses.page.js";
 
 /**
  * Page-object fixtures.
@@ -21,6 +24,12 @@ import { AddRemoveElementsPage } from "../pages/add-remove-elements.page.js";
  * fixtures run (and navigate). Import `test` and `expect` from this module
  * instead of from `@playwright/test`.
  */
+// Third-party ad / tracker hosts the AUT loads. They add nothing to the tests
+// and occasionally intercept clicks or reflow the page, causing flake — so we
+// abort requests to them via network interception.
+const BLOCKED_HOSTS =
+  /(asas\.yango|doubleclick|googlesyndication|google-analytics|googletagmanager|adservice\.google|buysellads|carbonads)/;
+
 type PageObjects = {
   loginPage: LoginPage;
   securePage: SecurePage;
@@ -32,10 +41,19 @@ type PageObjects = {
   radioButtonsPage: RadioButtonsPage;
   jsDialogsPage: JsDialogsPage;
   dynamicTablePage: DynamicTablePage;
+  dynamicPaginationTablePage: DynamicPaginationTablePage;
   addRemoveElementsPage: AddRemoveElementsPage;
+  tooltipsPage: TooltipsPage;
+  keyPressesPage: KeyPressesPage;
 };
 
 export const test = base.extend<PageObjects>({
+  // Block ad/tracker requests for every test before any navigation happens.
+  page: async ({ page }, use) => {
+    await page.route(BLOCKED_HOSTS, (route) => route.abort());
+    await use(page);
+  },
+
   loginPage: async ({ page }, use) => {
     await page.goto(PageUrls.LOGIN_PAGE());
     await use(new LoginPage(page));
@@ -78,9 +96,21 @@ export const test = base.extend<PageObjects>({
     await page.goto(PageUrls.DYNAMIC_TABLE_PAGE());
     await use(new DynamicTablePage(page));
   },
+  dynamicPaginationTablePage: async ({ page }, use) => {
+    await page.goto(PageUrls.DYNAMIC_PAGINATION_TABLE_PAGE());
+    await use(new DynamicPaginationTablePage(page));
+  },
   addRemoveElementsPage: async ({ page }, use) => {
     await page.goto(PageUrls.ADD_REMOVE_ELEMENTS_PAGE());
     await use(new AddRemoveElementsPage(page));
+  },
+  tooltipsPage: async ({ page }, use) => {
+    await page.goto(PageUrls.TOOLTIPS_PAGE());
+    await use(new TooltipsPage(page));
+  },
+  keyPressesPage: async ({ page }, use) => {
+    await page.goto(PageUrls.KEY_PRESSES_PAGE());
+    await use(new KeyPressesPage(page));
   },
 });
 

@@ -25,6 +25,9 @@ export default [
       parser: tseslint.parser,
       parserOptions: {
         sourceType: "module",
+        // Enable type-aware linting (required by rules like no-floating-promises).
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
@@ -41,6 +44,8 @@ export default [
       // TS tweaks
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/explicit-function-return-type": "off",
+      // Catch missing `await` on promises — the most common source of test flake.
+      "@typescript-eslint/no-floating-promises": "error",
     },
   },
 

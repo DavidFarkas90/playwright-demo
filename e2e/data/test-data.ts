@@ -29,4 +29,22 @@ export const TestData = {
     PASSWORD: "password123",
     DATE: "2024-01-01",
   },
+
+  /** Keys pressed on the key-presses page and the upper-cased value echoed back. */
+  KEY_PRESSES: [
+    { press: "Tab", echoed: "TAB" },
+    { press: "a", echoed: "A" },
+  ],
+
+  /** Expected values for the dynamic pagination table (10 students, alphabetical). */
+  PAGINATION_TABLE: {
+    DEFAULT_PAGE_SIZE: 3,
+    ALL_PAGE_SIZE: "-1",
+    TOTAL_STUDENTS: 10,
+    SEARCH_TERM: "Alice",
+    SEARCH_MATCH: "Alice Johnson",
+    PAGE_ONE_FIRST_STUDENT: "Alice Johnson",
+    PAGE_TWO: 2,
+    PAGE_TWO_FIRST_STUDENT: "Emma Brown",
+  },
 };
