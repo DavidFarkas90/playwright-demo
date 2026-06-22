@@ -3,14 +3,6 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
 /e2e/downloads
 /playwright/.auth/
 .env

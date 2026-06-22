@@ -47,4 +47,28 @@ export const TestData = {
     PAGE_TWO: 2,
     PAGE_TWO_FIRST_STUDENT: "Emma Brown",
   },
+
+  /** Data for the JSONPlaceholder API tests. */
+  API: {
+    /** Known users to fetch and verify (id → name/username). */
+    USERS: [
+      { id: 1, name: "Leanne Graham", username: "Bret" },
+      { id: 2, name: "Ervin Howell", username: "Antonette" },
+      { id: 3, name: "Clementine Bauch", username: "Samantha" },
+      { id: 4, name: "Patricia Lebsack", username: "Karianne" },
+    ],
+
+    /** A user id that does not exist, used for the 404 negative case. */
+    MISSING_USER_ID: 99999,
+
+    /** Payload sent when creating a post. */
+    NEW_POST: {
+      title: "Testing posts",
+      body: "this is my body",
+      userId: 1,
+    },
+
+    /** JSONPlaceholder echoes a fixed id (101) for any created resource. */
+    CREATED_POST_ID: 101,
+  },
 };
