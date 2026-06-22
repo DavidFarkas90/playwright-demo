@@ -33,7 +33,7 @@ export const test = base.extend<object, AuthWorkerFixtures>({
         const page = await browser.newPage();
         const loginPage = new LoginPage(page);
 
-        await page.goto(PageUrls.LOGIN_PAGE());
+        await page.goto(PageUrls.LOGIN_PAGE);
         await loginPage.login(USERNAME, PASSWORD);
         await expect(loginPage.alert).toContainText(LoginPageLabels.YOU_LOGGED_INTO_A_SECURE_AREA);
 

@@ -1,17 +1,24 @@
+/**
+ * Relative URL paths for the UI pages under test.
+ *
+ * These resolve against the `baseURL` configured in `playwright.config.ts`, so
+ * navigation reads `page.goto(PageUrls.LOGIN_PAGE)` — no hardcoded host and no
+ * per-entry factory function. Point the whole suite at another environment by
+ * setting the `BASE_URL` env var (see the config).
+ */
 export const PageUrls = {
-  BASE_URL: "https://practice.expandtesting.com",
-  LOGIN_PAGE: () => `${PageUrls.BASE_URL}/login`,
-  SECURE_PAGE: () => `${PageUrls.BASE_URL}/secure`,
-  UPLOAD_PAGE: () => `${PageUrls.BASE_URL}/upload`,
-  INPUT_PAGE: () => `${PageUrls.BASE_URL}/inputs`,
-  HOVER_PAGE: () => `${PageUrls.BASE_URL}/hovers`,
-  DROPDOWN_PAGE: () => `${PageUrls.BASE_URL}/dropdown`,
-  CHECKBOXES_PAGE: () => `${PageUrls.BASE_URL}/checkboxes`,
-  RADIO_BUTTONS_PAGE: () => `${PageUrls.BASE_URL}/radio-buttons`,
-  JS_DIALOGS_PAGE: () => `${PageUrls.BASE_URL}/js-dialogs`,
-  DYNAMIC_TABLE_PAGE: () => `${PageUrls.BASE_URL}/dynamic-table`,
-  DYNAMIC_PAGINATION_TABLE_PAGE: () => `${PageUrls.BASE_URL}/dynamic-pagination-table`,
-  ADD_REMOVE_ELEMENTS_PAGE: () => `${PageUrls.BASE_URL}/add-remove-elements`,
-  TOOLTIPS_PAGE: () => `${PageUrls.BASE_URL}/tooltips`,
-  KEY_PRESSES_PAGE: () => `${PageUrls.BASE_URL}/key-presses`,
+  LOGIN_PAGE: "/login",
+  SECURE_PAGE: "/secure",
+  UPLOAD_PAGE: "/upload",
+  INPUT_PAGE: "/inputs",
+  HOVER_PAGE: "/hovers",
+  DROPDOWN_PAGE: "/dropdown",
+  CHECKBOXES_PAGE: "/checkboxes",
+  RADIO_BUTTONS_PAGE: "/radio-buttons",
+  JS_DIALOGS_PAGE: "/js-dialogs",
+  DYNAMIC_TABLE_PAGE: "/dynamic-table",
+  DYNAMIC_PAGINATION_TABLE_PAGE: "/dynamic-pagination-table",
+  ADD_REMOVE_ELEMENTS_PAGE: "/add-remove-elements",
+  TOOLTIPS_PAGE: "/tooltips",
+  KEY_PRESSES_PAGE: "/key-presses",
 };

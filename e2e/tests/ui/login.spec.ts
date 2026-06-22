@@ -14,11 +14,11 @@ test.describe("Login page tests", () => {
     });
 
     await test.step("Verify username validation error is displayed", async () => {
-      const errorMessage = await loginPage.getAlertMessage();
-      expect(await loginPage.isAlertVisible()).toBeTruthy();
-      expect(errorMessage, LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT).toEqual(
-        LoginPageLabels.YOUR_USERNAME_IS_INVALID,
-      );
+      await expect(loginPage.alert).toBeVisible();
+      await expect(
+        loginPage.alertMessage,
+        LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT,
+      ).toHaveText(LoginPageLabels.YOUR_USERNAME_IS_INVALID);
     });
   });
 
@@ -30,11 +30,11 @@ test.describe("Login page tests", () => {
     });
 
     await test.step("Verify password validation error is displayed", async () => {
-      const errorMessage = await loginPage.getAlertMessage();
-      expect(await loginPage.isAlertVisible()).toBeTruthy();
-      expect(errorMessage, LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT).toEqual(
-        LoginPageLabels.YOUR_PASSWORD_IS_INVALID,
-      );
+      await expect(loginPage.alert).toBeVisible();
+      await expect(
+        loginPage.alertMessage,
+        LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT,
+      ).toHaveText(LoginPageLabels.YOUR_PASSWORD_IS_INVALID);
     });
   });
 
@@ -44,11 +44,11 @@ test.describe("Login page tests", () => {
     });
 
     await test.step("Verify secure area success message is displayed", async () => {
-      const loggedInMessage = await loginPage.getAlertMessage();
-      expect(await loginPage.isAlertVisible()).toBeTruthy();
-      expect(loggedInMessage, LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT).toEqual(
-        LoginPageLabels.YOU_LOGGED_INTO_A_SECURE_AREA,
-      );
+      await expect(loginPage.alert).toBeVisible();
+      await expect(
+        loginPage.alertMessage,
+        LoginPageLabels.VALIDATION_MESSAGE_IS_CORRECT,
+      ).toHaveText(LoginPageLabels.YOU_LOGGED_INTO_A_SECURE_AREA);
     });
   });
 
@@ -60,8 +60,9 @@ test.describe("Login page tests", () => {
     });
 
     await test.step("Verify logout confirmation message is displayed", async () => {
-      const loggedOutMessage = await loginPage.getAlertMessage();
-      expect(loggedOutMessage).toEqual(LoginPageLabels.YOU_ARE_LOGGED_OUT_OF_THE_SECURE_AREA);
+      await expect(loginPage.alertMessage).toHaveText(
+        LoginPageLabels.YOU_ARE_LOGGED_OUT_OF_THE_SECURE_AREA,
+      );
     });
   });
 });

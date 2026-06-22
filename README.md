@@ -11,7 +11,8 @@ Tests run against a publicly available practice site:
 - Page Object Model (POM) — every page has a dedicated class extending a shared `BasePage`, no raw locators in tests
 - Typed constants for URLs, labels, and HTTP status codes, plus a centralized test-data file
 - UI tests: login/logout, hover, file upload, input fields, dropdowns, checkboxes, radio buttons, JavaScript dialogs, dynamic tables, paginated/searchable tables, add/remove elements, tooltips, key presses
-- API tests using Playwright's request context, wrapped in a typed service layer
+- API tests using Playwright's request context, wrapped in a typed service layer (with positive and negative/404 cases) and exposed through a service fixture
+- Accessibility tests with [`@axe-core/playwright`](https://playwright.dev/docs/accessibility-testing) — WCAG 2.0/2.1 A & AA scans with the full axe report attached to the HTML report
 - Page-object fixtures (`test.extend`) and reusable authentication via `storageState`
 - Network interception (`page.route`) to block ad/tracker requests — faster, less flaky runs
 - Data-driven tests via `for...of` over a dataset
@@ -35,6 +36,8 @@ e2e/
 ├── fixtures/
 │   ├── pages.fixture.ts         # Page-object fixtures (navigation + instantiation)
 │   ├── auth.fixture.ts          # Authenticated test variant (worker-scoped login)
+│   ├── api.fixture.ts           # API service fixtures (typed service per request context)
+│   ├── a11y.fixture.ts          # Accessibility fixture (configured axe builder)
 │   └── auth.ts                  # Path to the saved authentication storage state
 ├── pages/
 │   ├── base.page.ts             # Shared base class for all page objects
@@ -182,6 +185,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 - [x] Reuse authentication state across tests with `storageState`
 - [x] Write data-driven tests using a test data array with `test.each` or a `for...of` loop
 - [ ] Add visual regression tests
+- [x] Add accessibility tests with `@axe-core/playwright` (WCAG A/AA scans)
 - [ ] Use Trace Viewer to debug failing tests
 - [x] Capture screenshots and videos on failure
 - [ ] Dockerize the test suite
@@ -204,7 +208,7 @@ A structured path for learning Playwright and API testing using OOP and POM desi
 - [x] Write login test (valid)
 - [x] Write login test (invalid)
 - [x] Write logout test
-- [ ] Cover form validation
+- [x] Cover form validation (empty username, valid username + invalid password)
 - [x] Use `getByRole`, `getByLabel`, `getByText`
 - [x] Add assertions (`toBeVisible`, etc.)
 

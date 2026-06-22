@@ -55,61 +55,61 @@ export const test = base.extend<PageObjects>({
   },
 
   loginPage: async ({ page }, use) => {
-    await page.goto(PageUrls.LOGIN_PAGE());
+    await page.goto(PageUrls.LOGIN_PAGE);
     await use(new LoginPage(page));
   },
   // Requires authenticated storage state (see auth.setup.ts); /secure redirects
   // to /login otherwise.
   securePage: async ({ page }, use) => {
-    await page.goto(PageUrls.SECURE_PAGE());
+    await page.goto(PageUrls.SECURE_PAGE);
     await use(new SecurePage(page));
   },
   inputPage: async ({ page }, use) => {
-    await page.goto(PageUrls.INPUT_PAGE());
+    await page.goto(PageUrls.INPUT_PAGE);
     await use(new InputPage(page));
   },
   uploadPage: async ({ page }, use) => {
-    await page.goto(PageUrls.UPLOAD_PAGE());
+    await page.goto(PageUrls.UPLOAD_PAGE);
     await use(new UploadPracticePage(page));
   },
   hoverPage: async ({ page }, use) => {
-    await page.goto(PageUrls.HOVER_PAGE());
+    await page.goto(PageUrls.HOVER_PAGE);
     await use(new HoverPage(page));
   },
   dropdownPage: async ({ page }, use) => {
-    await page.goto(PageUrls.DROPDOWN_PAGE());
+    await page.goto(PageUrls.DROPDOWN_PAGE);
     await use(new DropdownPage(page));
   },
   checkboxesPage: async ({ page }, use) => {
-    await page.goto(PageUrls.CHECKBOXES_PAGE());
+    await page.goto(PageUrls.CHECKBOXES_PAGE);
     await use(new CheckboxesPage(page));
   },
   radioButtonsPage: async ({ page }, use) => {
-    await page.goto(PageUrls.RADIO_BUTTONS_PAGE());
+    await page.goto(PageUrls.RADIO_BUTTONS_PAGE);
     await use(new RadioButtonsPage(page));
   },
   jsDialogsPage: async ({ page }, use) => {
-    await page.goto(PageUrls.JS_DIALOGS_PAGE());
+    await page.goto(PageUrls.JS_DIALOGS_PAGE);
     await use(new JsDialogsPage(page));
   },
   dynamicTablePage: async ({ page }, use) => {
-    await page.goto(PageUrls.DYNAMIC_TABLE_PAGE());
+    await page.goto(PageUrls.DYNAMIC_TABLE_PAGE);
     await use(new DynamicTablePage(page));
   },
   dynamicPaginationTablePage: async ({ page }, use) => {
-    await page.goto(PageUrls.DYNAMIC_PAGINATION_TABLE_PAGE());
+    await page.goto(PageUrls.DYNAMIC_PAGINATION_TABLE_PAGE);
     await use(new DynamicPaginationTablePage(page));
   },
   addRemoveElementsPage: async ({ page }, use) => {
-    await page.goto(PageUrls.ADD_REMOVE_ELEMENTS_PAGE());
+    await page.goto(PageUrls.ADD_REMOVE_ELEMENTS_PAGE);
     await use(new AddRemoveElementsPage(page));
   },
   tooltipsPage: async ({ page }, use) => {
-    await page.goto(PageUrls.TOOLTIPS_PAGE());
+    await page.goto(PageUrls.TOOLTIPS_PAGE);
     await use(new TooltipsPage(page));
   },
   keyPressesPage: async ({ page }, use) => {
-    await page.goto(PageUrls.KEY_PRESSES_PAGE());
+    await page.goto(PageUrls.KEY_PRESSES_PAGE);
     await use(new KeyPressesPage(page));
   },
 });

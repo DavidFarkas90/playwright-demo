@@ -45,12 +45,4 @@ export class LoginPage extends BasePage {
     await this.enterPassword(password);
     await this.clickLoginButton();
   }
-
-  async isAlertVisible(): Promise<boolean> {
-    return await this.alert.isVisible();
-  }
-
-  async getAlertMessage(): Promise<string> {
-    return await this.alertMessage.innerText();
-  }
 }
